@@ -4,10 +4,25 @@
   padding: 0;
 }
 
+.head-shadow {
+    text-shadow: 0 0 8px white
+}
+
 .app-navbar {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.5);
+  /*background-color: rgba(255, 255, 255, 0.5);*/
+  background-color: #152d5c72;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
 }
 
 .navbar-brand {

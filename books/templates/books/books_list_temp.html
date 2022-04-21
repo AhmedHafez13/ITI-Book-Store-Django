@@ -1,13 +1,15 @@
-{% extends 'books/base_template.html' %} {% load static %} {% block content %}
+{% extends 'books/base_template.html' %}
+{% load static %}
 
+{% block content %}
 <div class="container text-center">
-  <div class="text-center sticky-top text-light d-inline-block">
+  <div class="text-center sticky-top d-inline-block head-shadow">
     {% block upper_content %}{% endblock %}
   </div>
   <!-- [START] Books cards -->
   <div class="d-flex justify-content-around flex-wrap">
     {% for book in books %}
-    <div class="card book-card m-3 bg-dark" style="max-width: 12rem">
+    <div class="card book-card m-3" style="max-width: 12rem">
       <div>
         <img
           src="{% static 'books/images/'|add:book.cover %}"
@@ -61,7 +63,7 @@
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <div class="modal-content bg-secondary">
+      <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ConfirmModalLabel">Confirm Delete</h5>
           <button

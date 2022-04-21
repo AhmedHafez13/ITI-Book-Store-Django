@@ -21,12 +21,11 @@
 
     <link rel="stylesheet" href="{% static 'books/css/styles.css' %}" />
   </head>
-  <body class="text-light" style="background-color: black;">
-    <nav
-      style="backdrop-filter: blur(8px); background-color: #34539256"
-      class="px-3 py-2 mb-3 text-light sticky-top d-flex justify-content-between"
-    >
-      <a href="/" class="btn text-light"><span class="h4">Library</span></a>
+  <body>
+    <nav class="app-navbar">
+      <a href="/" class="btn text-light">
+        <span class="h4 head-shadow">Library</span>
+      </a>
       <a href="/books/create" class="btn btn-success"
         ><span class="h4">Add Book</span></a
       >

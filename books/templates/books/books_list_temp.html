@@ -9,12 +9,12 @@
   <!-- [START] Books cards -->
   <div class="d-flex justify-content-around flex-wrap">
     {% for book in books %}
-    <div class="card book-card m-3" style="max-width: 12rem">
+    <div class="card book-card m-3" style="max-width: 12rem;">
       <div>
         <img
           src="{% static 'books/images/'|add:book.cover %}"
           alt="{{book.title}}"
-          class="card-img-top align-self-center"
+          class="card-img-top"
         />
         <div
           class="bg-secondary text-light text-center"

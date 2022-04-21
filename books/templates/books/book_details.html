@@ -1,0 +1,39 @@
+{% extends 'books/base_template.html' %}
+{% load static %}
+
+{% block page_title %} {{ book.title }} {% endblock %}
+
+{% block content %}
+<div class="row m-0">
+  <div class="col-4 mt-3">
+    <img
+      src="{% static 'books/images/'|add:book.cover %}"
+      alt="{{book.title}}"
+      width="100%"
+      class="card-img-top align-self-center rounded"
+    />
+  </div>
+  <div class="col-7 mt-3">
+    <div class="mb-3">
+      <span class="h3">{{ book.title }}</span>
+      <a href="/authors/{{ book.author.id }}">
+        <span class="h4">(by {{ book.author }})</span>
+      </a>
+    </div>
+
+    <div class="mb-3">
+      <span class="h5">Appropriate for:</span> {{ book.appropriate_for }}
+    </div>
+
+    <div class="mb-3"><span class="h5">Price:</span> ${{ book.price }}</div>
+
+    <div class="mb-3">
+      <span class="h5">Publish date: </span> {{ book.publish_date }}
+    </div>
+
+    <div class="mb-3">
+      <span class="h5">Date added to website: </span> {{ book.created_at }}
+    </div>
+  </div>
+</div>
+{% endblock %}

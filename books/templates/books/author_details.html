@@ -1,0 +1,42 @@
+{% extends 'books/base_template.html' %}
+{% load static %}
+
+{% block page_title %} {{ author.name }} {% endblock %}
+
+{% block content %}
+<h4 class="p-3 mb-3">Author: {{ author.name }}</h4>
+<div class="container">
+  <!-- [START] Books cards -->
+  <div class="d-flex justify-content-around flex-wrap">
+    {% for book in books %}
+    <div class="card book-card m-3" style="max-width: 16rem">
+      <div>
+        <img
+          src="{% static 'books/images/'|add:book.cover %}"
+          alt="{{book.title}}"
+          class="card-img-top align-self-center"
+        />
+        <div
+          class="bg-secondary text-light text-center"
+          style="letter-spacing: 0.5rem"
+        >
+          {{ book.appropriate_for }}
+        </div>
+        <div class="card-body text-center">
+          <p class="badge bg-success text-light me-1">By: {{ book.author }}</p>
+          <br />
+          <p class="badge bg-secondary text-center text-light">
+            Price: ${{ book.price }}
+          </p>
+          <br />
+          <a href="/books/{{ book.id }}" class="btn btn-primary w-100"
+            >Show Details</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- [END] Books cards -->
+</div>
+{% endblock %}

@@ -1,7 +1,9 @@
-from django.shortcuts import render
-# from django.http import HttpResponse
-from .models import Book, Author
 import os
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+
+from .models import Book, Author
+from .forms import BookForm
 
 
 # Create your views here.
@@ -13,10 +15,33 @@ def index(request):
     return render(request, "books/index.html", context={'books': all_books})
 
 
+def create_book(request):
+    if request.method == "POST":
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            book = form.save()
+            return redirect("book_details", book_id=book.id)
+    elif request.method == "GET":
+        form = BookForm()
+    else:
+        return HttpResponse("Method not allowed")
+
+    return render(request, "books/create_book.html", context={"form": form})
+
+
 def show_book(request, book_id):
     book = Book.objects.get(id=book_id)
     book.cover = os.path.basename(book.cover_image.name)
     return render(request, "books/book_details.html", context={'book': book})
+
+
+def delete_book(request, book_id):
+    if request.method == "POST":
+        book = get_object_or_404(Book, id=book_id)
+        book.delete()
+        return redirect("index")
+    else:
+        return HttpResponse("Method not allowed")
 
 
 def show_author(request, author_id):

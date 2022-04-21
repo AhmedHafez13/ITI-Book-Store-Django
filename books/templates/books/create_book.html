@@ -1,0 +1,21 @@
+{% extends 'books/base_template.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="card shadow my-3 mx-auto bg-secondary" style="max-width: 550px;">
+    <div class="card-header">
+      Add a new book
+    </div>
+    <div class="card-content p-4">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center">
+          <input class="btn btn-success btn-lg" type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

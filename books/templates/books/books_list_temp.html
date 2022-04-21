@@ -1,0 +1,109 @@
+{% extends 'books/base_template.html' %} {% load static %} {% block content %}
+
+<div class="container text-center">
+  <div class="text-center sticky-top text-light d-inline-block">
+    {% block upper_content %}{% endblock %}
+  </div>
+  <!-- [START] Books cards -->
+  <div class="d-flex justify-content-around flex-wrap">
+    {% for book in books %}
+    <div class="card book-card m-3 bg-dark" style="max-width: 12rem">
+      <div>
+        <img
+          src="{% static 'books/images/'|add:book.cover %}"
+          alt="{{book.title}}"
+          class="card-img-top align-self-center"
+        />
+        <div
+          class="bg-secondary text-light text-center"
+          style="letter-spacing: 0.5rem"
+        >
+          {{ book.appropriate_for }}
+        </div>
+        <div class="card-body text-center">
+          <a href="/authors/{{book.author.id}}">
+            <p class="badge bg-success text-light me-1">
+              By: {{ book.author }}
+            </p>
+          </a>
+          <br />
+          <p class="badge bg-secondary text-center text-light">
+            Price: ${{ book.price }}
+          </p>
+          <br />
+          <a href="/books/{{ book.id }}" class="btn btn-primary w-100">
+            View Details
+          </a>
+          <div class="d-flex mt-2">
+            <a href="/books/edit/{{ book.id }}" class="btn btn-info w-100 me-1">
+              Edit
+            </a>
+            <button
+              class="btn btn-danger w-100 ms-1"
+              onclick="showConfirmationModal('{{ book.id }}', '{{ book.title }}')"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- [END] Books cards -->
+
+  <!-- [START] Confirm Modal -->
+  <div
+    class="modal fade"
+    id="ConfirmModal"
+    tabindex="-1"
+    aria-labelledby="ConfirmModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content bg-secondary">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ConfirmModalLabel">Confirm Delete</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <span>Are you sure you want to detete</span>
+          <span class="text-info" id="bookTitle"></span>?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <form id="deleteForm" action="/books/delete" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="_method" value="delete" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [END] Confirm Modal -->
+
+  <script>
+    const showConfirmationModal = (bookId, bookTitle) => {
+      document
+        .getElementById("deleteForm")
+        .setAttribute("action", `/books/delete/${bookId}`);
+
+      document.getElementById("bookTitle").innerHTML = bookTitle;
+
+      new bootstrap.Modal(document.getElementById("ConfirmModal")).show();
+    };
+  </script>
+</div>
+{% endblock %}
